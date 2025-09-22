@@ -43,11 +43,22 @@
       margin-bottom: 1rem;
     }
 
-    img {
-      width: 100%;
+    .image-container {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .image-container img {
+      width: 80%;
       border-radius: 8px;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
       box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+    }
+
+    .caption {
+      font-size: 0.9rem;
+      color: #bbb;
+      margin-top: 0.3rem;
     }
 
     iframe {
@@ -73,25 +84,42 @@
       color: #666;
     }
 
-    .links {
+    /* Tabs */
+    .tab-container {
+      width: 100%;
       margin-top: 2rem;
-      text-align: center;
     }
 
-    .links a {
-      display: inline-block;
-      margin: 0.5rem 1rem;
-      padding: 0.6rem 1.2rem;
+    .tab-buttons {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .tab-buttons button {
+      background: #111;
       color: #00ffff;
       border: 1px solid #00ffff;
+      padding: 0.7rem 1.2rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
       border-radius: 6px;
-      text-decoration: none;
       transition: background 0.3s, color 0.3s;
     }
 
-    .links a:hover {
+    .tab-buttons button:hover,
+    .tab-buttons button.active {
       background: #00ffff;
       color: #000;
+    }
+
+    .tab-content {
+      display: none;
+      text-align: center;
+    }
+
+    .tab-content.active {
+      display: block;
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -104,7 +132,14 @@
 
   <section>
     <h2>About Me</h2>
-    <p>After high school, I want to study <span class="glow-text">Engineering</span>. Understanding computing, data, and networks helps prepare me for the future.</p>
+    <p>
+      After high school, I want to study <span class="glow-text">Engineering</span>. Understanding computing, data, and networks helps prepare me for the future.
+    </p>
+
+    <div class="image-container">
+      <img src="keyboard.jpeg" alt="Keyboard glowing in the dark">
+      <p class="caption">Technology and computing inspire my future career in engineering.</p>
+    </div>
   </section>
 
   <section>
@@ -115,33 +150,67 @@
       Like all parts of the internet, data is split into <strong>packets</strong> and routed through <strong>routers</strong> 
       across many possible <strong>paths</strong>, making it fault tolerant and scalable. 
     </p>
+
+    <div class="image-container">
+      <img src="icecube.jpg" alt="Frozen digital cube representing encryption">
+      <p class="caption">Encryption is the core technology that protects Dark Web users.</p>
+    </div>
+
     <p>
       The foundation of digital communication comes from <strong>bits</strong> and <strong>bytes</strong>. A bit is a binary digit (0 or 1), 
       and eight bits form a byte. This binary system powers everything, from <strong>analog data</strong> conversion to 
       storing <strong>metadata</strong> about files. The Dark Web still uses the same building blocks of the internet, like 
       <strong>IP</strong>, <strong>TCP</strong>, and <strong>HTTP</strong>, but hides them behind layers of encryption. 
     </p>
+
     <p>
       Just like <strong>lossless</strong> and <strong>lossy</strong> compression can change the quality of data, the Dark Web 
       trades speed and convenience for secrecy and anonymity. 
     </p>
-    
-    <img src="icecube.jpg" alt="Encryption visualization">
-    <img src="keyboard.jpeg" alt="Dark Web concept art">
 
     <h3>Watch: How the Internet Works</h3>
     <iframe src="https://www.youtube.com/embed/7_LPdttKXPc" 
       title="How the Internet Works Video"></iframe>
+
+    <h3>Watch: What is the Dark Web?</h3>
+    <iframe src="https://www.youtube.com/embed/jSxF2J_Tk7s" 
+      title="What is the Dark Web Video"></iframe>
   </section>
 
-  <section class="links">
+  <section class="tab-container">
     <h2>AP Computer Science Principles Resources</h2>
-    <a href="https://apcentral.collegeboard.org/courses/ap-computer-science-principles/course" target="_blank">Unit 1: The Internet</a>
-    <a href="https://apcentral.collegeboard.org/courses/ap-computer-science-principles/course" target="_blank">Unit 2: Data & Information</a>
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="unit1">Unit 1</button>
+      <button class="tab-btn" data-tab="unit2">Unit 2</button>
+    </div>
+    <div id="unit1" class="tab-content active">
+      <p><a href="https://quizlet.com/196977025/ap-computer-science-principles-unit-1-flash-cards/" target="_blank">Click here for Unit 1: The Internet (Quizlet)</a></p>
+    </div>
+    <div id="unit2" class="tab-content">
+      <p><a href="https://quizlet.com/227616241/ap-computer-science-principles-unit-2-flash-cards/" target="_blank">Click here for Unit 2: Data & Information (Quizlet)</a></p>
+    </div>
   </section>
 
   <footer>
     <p>&copy; 2025 Will | Built for GitHub Pages</p>
   </footer>
+
+  <script>
+    // Tab functionality
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Reset active states
+        tabButtons.forEach(btn => btn.classList.remove("active"));
+        tabContents.forEach(content => content.classList.remove("active"));
+
+        // Set active states
+        button.classList.add("active");
+        document.getElementById(button.dataset.tab).classList.add("active");
+      });
+    });
+  </script>
 </body>
 </html>
